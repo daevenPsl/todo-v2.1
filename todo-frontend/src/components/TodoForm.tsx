@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "../App.scss";
 import { Button, Form, TextInput, ToastNotification } from "@carbon/react";
-
+import "./tmp.css"
 
 export const TodoForm = ({ addTodo }) => {
   const [todo, setTodo] = useState({
@@ -27,9 +27,12 @@ export const TodoForm = ({ addTodo }) => {
 
       toggleToastNotification(true);
 
-      setTimeout(() => toggleToastNotification(false), 5000)
+      setTimeout(() => {
+        toggleToastNotification(false);
+        setTodo({ ...todo, task: "" });
+      }, 3000)
 
-      setTodo({ ...todo, task: "" });
+      //setTodo({ ...todo, task: "" });
     }
   }
 
@@ -38,9 +41,11 @@ export const TodoForm = ({ addTodo }) => {
     <div className="App">
       <div className="centerContent">
         <h2>Todo</h2>
-
+        
         <Form onSubmit={handleSubmit}>
+          
           <TextInput
+            // className="textInput"
             style={{ width: "500px", marginBottom: "10px" }}
             id="test2"
             invalidText="Invalid error message."
@@ -61,12 +66,12 @@ export const TodoForm = ({ addTodo }) => {
           </Button>
           
         </Form>
-
+        
         {toastNotification && <ToastNotification
                         style={{position: "absolute", right: "20px", top: "60px"}}
                         title={'Success!'}
                         kind={'success'}
-                        subtitle={'Task added to your todo list!'}
+                        subtitle={'Added ' + todo.task+ ' to your todo list!'}
                         
                     />}
       </div>

@@ -1,15 +1,22 @@
-@import '@carbon/themes/scss/themes';
+
+@use '@carbon/react/scss/themes';
+@use '@carbon/react/scss/theme' with (
+  $theme: themes.$g100,
+);
+@use '@carbon/react';
 
 
-//@include theme($theme--g100);
-// $theme: $theme--g10;
+// .textInput {
+//   width: "500px";
+//   margin-bottom: "10px";
+//   color: red;
+//   background-color: red;
+// }
 
-// Use the gray 10 theme
-// @include theme();
 
 .App {
   text-align: center;
- // background-color: $theme--g10;
+  //background-color: $theme;
 }
 
 .App-logo {
@@ -47,20 +54,26 @@
   color: black;
 }
 
+
 .viewTodo {
   /* background-color: #282c34; */
   /* min-height: 100vh; */
-  min-height: 50vh;
-  display: flex;
-  flex-direction: column;
+  
   /* align-items: center; */
-  justify-content: center;
+  
   /* font-size: calc(10px + 2vmin); */
   /* color: white; */
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   color: black;
 }
 
-
+// .App .viewTodo .textInput{
+//   width: "500px";
+//    margin-bottom: "10px";
+// }
 
 .App-link {
   color: #61dafb;
@@ -74,3 +87,7 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+

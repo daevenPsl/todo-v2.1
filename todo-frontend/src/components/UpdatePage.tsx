@@ -11,7 +11,9 @@ import { useQuery } from "react-query";
 export const UpdatePage = () => {
 
   const location = useLocation();
-  const {taskId, currentTask}=location.state as { taskId: string, currentTask: string }
+  //const {taskId, currentTask}=location.state as { taskId: string, currentTask: string }
+  const {taskId}=location.state as { taskId: string }
+
 
   const [toastNotification, toggleToastNotification] = useState(false);
 
@@ -21,6 +23,15 @@ export const UpdatePage = () => {
     completed: false,
   });
 
+  // const {data, error, isError, isLoading } = useQuery('todo', async() => {
+  //   await getTodoById(taskId).then(res => setTodo({...todo, task: res.data.task}));
+  // }) 
+
+  useQuery('todo', async() => {
+    await getTodoById(taskId).then(res => setTodo({...todo, task: res.data.task}));
+  }) 
+
+  /*
   useEffect(() => {
 
     getTodoById(taskId).then(res => {
@@ -29,18 +40,16 @@ export const UpdatePage = () => {
     });
    
   }, []);
-
+*/
   
 
   const handleTaskInputChange = (e) => {
     // const tmp=location.state as { taskId: string };
     // const tmp2 =location.state as { currentTask: string };
-    
-
-    //console.log("taskId "+tmp.taskId+ " currentTask "+tmp2.currentTask)
-    console.log("taskId "+taskId+ " currentTask "+currentTask)
+  
+    //console.log("taskId "+taskId+ " currentTask "+currentTask)
    // setTodo({ ...todo, id: updateId , task: e.target.value });
-   setTodo({ ...todo, id: taskId , task: e.target.value });
+    setTodo({ ...todo, id: taskId , task: e.target.value });
   };
 
 
@@ -48,9 +57,7 @@ export const UpdatePage = () => {
     e.preventDefault();
 
     if (todo.task.trim()) {
-      console.log("updatepage called");
-      //addTodo({...todo, id: uuidv4()});
-      //setTodo({...todo, id:updateId});
+
       console.log("inside handlesubmit   " + todo.id + " " + todo.task);
 
     //   axios
@@ -66,11 +73,12 @@ export const UpdatePage = () => {
 
     toggleToastNotification(true);
 
-    setTimeout(() => toggleToastNotification(false), 5000)
-
-      //toast("Updated todo to "+ todo.task);
-
+    setTimeout(() => {
+      toggleToastNotification(false);
       setTodo({ ...todo, task: "" });
+    }, 3000)
+
+      //setTodo({ ...todo, task: "" });
     }
   };
   
@@ -105,7 +113,7 @@ export const UpdatePage = () => {
                         style={{position: "absolute", right: "20px", top: "60px"}}
                         title={'Success!'}
                         kind={'success'}
-                        subtitle={'Task updated!'}
+                        subtitle={"Updated todo to "+ todo.task}
                         
                     />}
       </div>
@@ -113,4 +121,3 @@ export const UpdatePage = () => {
   );
 };
 
-//export default UpdatePage;

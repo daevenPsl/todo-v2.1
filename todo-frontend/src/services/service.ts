@@ -8,10 +8,14 @@ const api = axios.create({
  });
  
 
+// export const postTodo = (todo) => {
+//   api.post(`/todo`, todo).then((res) => {
+//     console.log(res.data);
+//   });
+// };
+
 export const postTodo = (todo) => {
-  api.post(`/todo`, todo).then((res) => {
-    console.log(res.data);
-  });
+  return api.post(`/todo`, todo)
 };
 
 
@@ -19,22 +23,21 @@ export const getTodos = () => {
   return api.get(`/todo`).then((res) => {
     const notes = res.data;
     return notes;
-    // setTodos(notes);
-    //console.log(notes);
   });
 };
 
-
+/*
 export const toggleTodos = (id) => {
   api.put(`/todo/${id}`).then((res) => {
     console.log(res);
     //console.log(res.data);
   });
 };
+*/
 
-
+//reove return statement if reverting back to old
 export const deleteTodos = (id) => {
-  api.delete(`/todo/${id}`).then((res) => {
+  return api.delete(`/todo/${id}`).then((res) => {
     console.log(res);
   });
 };
@@ -51,7 +54,6 @@ export const updateTodos = (updateId, task) => {
     api.put(`/todo/update/${updateId}?task=${task}`)
         .then((res) => {
           console.log(res);
-          //console.log(res.data);
         });
 
   };
@@ -59,7 +61,6 @@ export const updateTodos = (updateId, task) => {
 
   export const getTodoById = (id) => {
     return api.get(`/todo/${id}`).then((res) => {
-      //console.log(res);
       return res;
     });
   };

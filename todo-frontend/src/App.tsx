@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from "react";
-// import logo from "./logo.svg";
 import "./App.scss";
-import { Home } from "./components/Home";
 import { TodoForm } from "./components/TodoForm";
 import { ViewTodo } from "./components/ViewTodo";
 import { UpdatePage } from "./components/UpdatePage";
 import { NavBar } from "./components/Navbar";
-import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { postTodo } from "./services/service";
+import { useMutation } from 'react-query'
 
-
-function App() {
+export const App =() => {
   const [todos, setTodos] = useState<
     { id: string; task: string; completed: boolean }[]
   >([]);
 
-  //const [updateId, setUpdateId] = useState("");
-
-
-  
+  const {mutate} = useMutation(postTodo)
 
   function addTodo(todo) {
     setTodos([...todos, todo]);
@@ -28,7 +22,10 @@ function App() {
     //   console.log(res.data);
     // });
 
-    postTodo(todo);
+    //const {isLoading, isError, error, mutate} = useMutation(postTodo(todo), {retry: 3})
+    mutate(todo);
+    //uncomment if removing useMutation and also uncomment fn in service.tx
+    //postTodo(todo);
 
   }
 
@@ -41,7 +38,7 @@ function App() {
         <Routes>
           <Route path="/addtodo" element={<TodoForm addTodo={addTodo} />} />
           <Route path="/viewtodo" element={<ViewTodo  />} />
-          <Route path="/" element={<ViewTodo  />} />
+          <Route path="/" element={<ViewTodo />} />
           <Route path="/updatepage" element={<UpdatePage/>} />
         </Routes>
       </Router>

@@ -44,12 +44,13 @@ export class TodoController {
         return this.todoService.deleteTodo(id);
     }
 
-
+    /*
     @Put(':id')
     public async updateTodo(@Param('id') id:string ){
         
         return this.todoService.updateTodo(id);
     }
+    */
 
     @Put('update/:id')
     public async putCarById(@Param('id') id:string, @Query() query ){
